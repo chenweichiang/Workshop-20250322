@@ -5,7 +5,7 @@
 ## 🚀 快速上手
 1. 下載並安裝必要軟體：
    - [Arduino IDE](https://www.arduino.cc/en/software)
-   - [Visual Studio Code](https://code.visualstudio.com/)
+   - [VS Code Insiders](https://code.visualstudio.com/insiders/)
 
 2. 安裝 VS Code 擴充功能：
    - Arduino
@@ -43,7 +43,7 @@
 ## 開發環境需求
 ### 必要軟體
 1. [Arduino IDE](https://www.arduino.cc/en/software)
-2. [Visual Studio Code](https://code.visualstudio.com/)
+2. [VS Code Insiders](https://code.visualstudio.com/insiders/)
 
 ### VS Code 擴充功能
 - Arduino
@@ -148,10 +148,10 @@
 
 
 ## 工作坊時間與地點
-- 日期：2025年3月22-23日
+- 日期：2024年3月22-23日
 - 地點：國立臺灣師範大學
 
 
 ---
 
-*最後更新：2025年3月22日*
+*最後更新：2024年3月22日*

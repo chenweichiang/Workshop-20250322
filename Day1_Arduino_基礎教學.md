@@ -11,7 +11,7 @@
    - 工具 > 連接埠 > 選擇對應的 COM 埠 (Windows) 或 /dev/cu.usb... (macOS)
 
 ### 安裝 VS Code 與 Arduino 擴充功能
-1. 下載並安裝 [Visual Studio Code](https://code.visualstudio.com/)
+1. 下載並安裝 [VS Code Insiders](https://code.visualstudio.com/insiders/)
 2. 在 VS Code 擴充功能市集中安裝：
    - Arduino 擴充功能
    - C/C++ 擴充功能
