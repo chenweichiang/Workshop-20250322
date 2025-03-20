@@ -1,3 +1,10 @@
+# Arduino 互動裝置工作坊
+
+![version](https://img.shields.io/badge/版本-0.0.3-blue)
+![update](https://img.shields.io/badge/更新日期-2024.03.22-green)
+
+![Arduino Logo](https://www.arduino.cc/en/uploads/Trademark/ArduinoCommunityLogo.png)
+
 # 師大 Artduino 工作坊教材
 版本：0.0.3
 最後更新：2024/03/22
@@ -78,16 +85,9 @@
   - 初始版本發布
   - 基礎 Arduino 教學內容
 
-# Arduino 互動裝置工作坊
-
-![version](https://img.shields.io/badge/版本-0.0.3-blue)
-![update](https://img.shields.io/badge/更新日期-2024.03.22-green)
-
-![Arduino Logo](https://www.arduino.cc/en/uploads/Trademark/ArduinoCommunityLogo.png)
-
 ## 工作坊簡介
 
-此Arduino互動裝置工作坊由國立臺灣師範大學舉辦，於2025年3月22-23日舉行。本工作坊旨在介紹Arduino開發平台的基礎知識，並引導參與者完成各種互動式電子專案。
+此Arduino互動裝置工作坊由國立臺灣師範大學舉辦，於2024年3月22-23日舉行。本工作坊旨在介紹Arduino開發平台的基礎知識，並引導參與者完成各種互動式電子專案。
 
 ## 開始之前
 請先閱讀 [環境設定說明](環境設定說明.md) 文件，依照步驟完成：
