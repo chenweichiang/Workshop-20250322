@@ -1,3 +1,56 @@
+# 師大 Artduino 工作坊教材
+版本：0.0.3
+最後更新：2024/03/22
+
+## 課程簡介
+這是為期兩天的 Arduino 工作坊教材，專為藝術創作者設計。課程內容包含基礎電子電路知識、Arduino 程式設計，以及互動裝置製作。
+
+## 教材內容
+- [Day1 Arduino 基礎教學](Day1_Arduino_基礎教學.md)
+  - Arduino IDE 與 VS Code 環境設置
+  - 基本電子元件認識
+  - 程式語言基礎
+  - LED 控制與感測器應用
+  - 基礎互動裝置製作
+
+## 開發環境需求
+### 必要軟體
+1. [Arduino IDE](https://www.arduino.cc/en/software)
+2. [Visual Studio Code](https://code.visualstudio.com/)
+
+### VS Code 擴充功能
+- Arduino
+- C/C++
+- GitHub Copilot（選配）
+
+### 硬體需求
+- Arduino Uno 開發板
+- USB 連接線
+- 基本電子元件（詳見材料清單）
+
+## 安裝說明
+1. 安裝 Arduino IDE
+2. 安裝 VS Code
+3. 在 VS Code 中安裝必要擴充功能
+4. 設定 Arduino 開發環境
+   - 配置 Arduino IDE 路徑
+   - 選擇開發板和連接埠
+
+詳細安裝步驟請參考 [Day1 Arduino 基礎教學](Day1_Arduino_基礎教學.md) 的環境設置章節。
+
+## 授權資訊
+本教材採用 MIT 授權條款。您可以自由使用、修改和分享，但請註明出處。
+
+## 更新紀錄
+- v0.0.3 (2024/03/22)
+  - 新增 VS Code 與 GitHub Copilot 環境設定說明
+- v0.0.2 (2024/03/22)
+  - 新增水銀開關相關內容
+  - 更新材料清單
+- v0.0.1 (2024/03/21)
+  - 初始版本發布
+  - 基礎 Arduino 教學內容
+
 # Arduino 互動裝置工作坊
 
 ![version](https://img.shields.io/badge/版本-0.0.2-blue)
