@@ -2,6 +2,33 @@
 版本：0.0.3
 最後更新：2024/03/22
 
+## 🚀 快速上手
+1. 下載並安裝必要軟體：
+   - [Arduino IDE](https://www.arduino.cc/en/software)
+   - [Visual Studio Code](https://code.visualstudio.com/)
+
+2. 安裝 VS Code 擴充功能：
+   - Arduino
+   - C/C++
+   - GitHub Copilot（選配）
+
+3. 硬體準備：
+   - 將 Arduino Uno 開發板透過 USB 連接到電腦
+   - 確認電腦是否正確識別裝置
+
+4. 環境測試：
+   - 開啟 Arduino IDE，選擇正確的開發板和連接埠
+   - 載入並上傳 Blink 範例程式
+   - LED 開始閃爍即表示環境設定成功
+
+5. 開始學習：
+   - 閱讀 [Day1 Arduino 基礎教學](Day1_Arduino_基礎教學.md)
+   - 依照教程逐步進行實作
+
+需要詳細說明？請參考下方完整文件。
+
+---
+
 ## 課程簡介
 這是為期兩天的 Arduino 工作坊教材，專為藝術創作者設計。課程內容包含基礎電子電路知識、Arduino 程式設計，以及互動裝置製作。
 
