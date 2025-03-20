@@ -1,4 +1,6 @@
 # Arduino 基礎教學 - 第一天
+版本：0.0.3
+最後更新：2024/03/22
 
 ## 環境設置
 ### 安裝 Arduino IDE
@@ -7,6 +9,27 @@
 3. 選擇正確的板子型號和連接埠
    - 工具 > 開發板 > Arduino Uno
    - 工具 > 連接埠 > 選擇對應的 COM 埠 (Windows) 或 /dev/cu.usb... (macOS)
+
+### 安裝 VS Code 與 Arduino 擴充功能
+1. 下載並安裝 [Visual Studio Code](https://code.visualstudio.com/)
+2. 在 VS Code 擴充功能市集中安裝：
+   - Arduino 擴充功能
+   - C/C++ 擴充功能
+   - GitHub Copilot（需要訂閱）
+
+### 設定 VS Code Arduino 開發環境
+1. 開啟 VS Code 設定（Cmd+, 或 Ctrl+,）
+2. 搜尋 "Arduino"
+3. 設定 Arduino 路徑：
+   - Windows：通常在 `C:\Program Files (x86)\Arduino`
+   - macOS：通常在 `/Applications/Arduino.app`
+4. 設定開發板和連接埠（在 VS Code 狀態列）
+
+### 啟用 GitHub Copilot
+1. 使用 GitHub 帳號登入 VS Code
+2. 確認 GitHub Copilot 訂閱狀態
+3. 在程式碼編輯時，Copilot 會自動提供建議
+4. 使用 `Tab` 鍵接受建議，`Esc` 鍵拒絕建議
 
 ## Arduino 基本概念
 ### Arduino 簡介
