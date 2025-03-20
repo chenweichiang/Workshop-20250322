@@ -1,7 +1,7 @@
 # Arduino 互動裝置工作坊
 
-![version](https://img.shields.io/badge/版本-0.0.1-blue)
-![update](https://img.shields.io/badge/更新日期-2025.03.20-green)
+![version](https://img.shields.io/badge/版本-0.0.2-blue)
+![update](https://img.shields.io/badge/更新日期-2025.03.22-green)
 
 ![Arduino Logo](https://www.arduino.cc/en/uploads/Trademark/ArduinoCommunityLogo.png)
 
@@ -74,4 +74,4 @@
 
 ---
 
-*最後更新：2025年3月20日*
+*最後更新：2025年3月22日*
