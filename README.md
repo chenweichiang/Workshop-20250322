@@ -80,8 +80,8 @@
 
 # Arduino 互動裝置工作坊
 
-![version](https://img.shields.io/badge/版本-0.0.2-blue)
-![update](https://img.shields.io/badge/更新日期-2025.03.22-green)
+![version](https://img.shields.io/badge/版本-0.0.3-blue)
+![update](https://img.shields.io/badge/更新日期-2024.03.22-green)
 
 ![Arduino Logo](https://www.arduino.cc/en/uploads/Trademark/ArduinoCommunityLogo.png)
 
