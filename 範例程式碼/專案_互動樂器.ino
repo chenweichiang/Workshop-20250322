@@ -1,166 +1,137 @@
 /*
- * Arduino 互動專案 - 互動樂器
- * 國立臺灣師範大學 Artduino 工作坊
- * 2025年3月
- * 
- * 此專案使用超音波距離感測器和蜂鳴器製作互動樂器
- * 手部距離感測器的距離決定音符的音高
- * 按鈕用於切換不同音階模式
+ * 互動樂器專案
+ * 使用可變電阻控制音高，水銀開關切換音色
  */
 
-// 針腳定義
-const int trigPin = 9;       // 超音波 Trig 針腳
-const int echoPin = 8;       // 超音波 Echo 針腳
-const int buzzerPin = 3;     // 蜂鳴器針腳
-const int buttonPin = 2;     // 模式切換按鈕針腳
-const int redLedPin = 10;    // 紅色 LED (調性 1)
-const int yellowLedPin = 11; // 黃色 LED (調性 2)
-const int greenLedPin = 12;  // 綠色 LED (調性 3)
+// 定義針腳
+const int POTENTIOMETER_PIN = A0;    // 可變電阻
+const int MERCURY_SWITCH_1 = 8;      // 水銀開關 1
+const int MERCURY_SWITCH_2 = 9;      // 水銀開關 2
+const int BUZZER_PIN = 3;            // 蜂鳴器
+const int MODE_BUTTON = 2;           // 模式切換按鈕
+const int MUTE_BUTTON = 4;           // 靜音按鈕
+const int LED_RED = 10;              // 紅色 LED
+const int LED_YELLOW = 11;           // 黃色 LED
+const int LED_GREEN = 12;            // 綠色 LED
 
-// 變數宣告
-long duration;
-int distance;
-int mode = 0;  // 樂器模式 (0: C Major, 1: A Minor, 2: Pentatonic)
-int buttonState = 0;
-int lastButtonState = 0;
+// 音階頻率定義
+const int NOTES[] = {
+  262, 294, 330, 349, 392, 440, 494, 523  // C4 到 C5
+};
 
-// C 大調音階頻率 (C4 to C5)
-int CMajorScale[] = {262, 294, 330, 349, 392, 440, 494, 523};
-
-// A 小調音階頻率 (A3 to A4)
-int AMinorScale[] = {220, 247, 262, 294, 330, 349, 392, 440};
-
-// 五聲音階頻率 (C4 Pentatonic)
-int PentatonicScale[] = {262, 294, 330, 392, 440, 523};
+// 變數
+int currentMode = 0;     // 當前模式（0-3）
+bool isMuted = false;    // 靜音狀態
+int lastPotValue = 0;    // 上一次的可變電阻值
+bool lastSwitch1State = false;  // 上一次的開關1狀態
+bool lastSwitch2State = false;  // 上一次的開關2狀態
+bool lastModeButtonState = false;  // 上一次的模式按鈕狀態
+bool lastMuteButtonState = false;  // 上一次的靜音按鈕狀態
 
 void setup() {
-  // 初始化針腳
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  pinMode(buzzerPin, OUTPUT);
-  pinMode(buttonPin, INPUT_PULLUP);
-  pinMode(redLedPin, OUTPUT);
-  pinMode(yellowLedPin, OUTPUT);
-  pinMode(greenLedPin, OUTPUT);
+  // 設定輸入輸出
+  pinMode(MERCURY_SWITCH_1, INPUT_PULLUP);
+  pinMode(MERCURY_SWITCH_2, INPUT_PULLUP);
+  pinMode(MODE_BUTTON, INPUT_PULLUP);
+  pinMode(MUTE_BUTTON, INPUT_PULLUP);
+  pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(LED_RED, OUTPUT);
+  pinMode(LED_YELLOW, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
   
-  // 初始化序列監視器
+  // 初始化串列通訊（用於除錯）
   Serial.begin(9600);
-  Serial.println("互動樂器已啟動");
-  
-  // 初始狀態：C 大調
-  digitalWrite(redLedPin, HIGH);
-  digitalWrite(yellowLedPin, LOW);
-  digitalWrite(greenLedPin, LOW);
 }
 
 void loop() {
-  // 讀取模式切換按鈕
-  buttonState = digitalRead(buttonPin);
+  // 讀取感測器狀態
+  int potValue = analogRead(POTENTIOMETER_PIN);
+  bool switch1State = !digitalRead(MERCURY_SWITCH_1);  // 反轉邏輯，傾斜時為 true
+  bool switch2State = !digitalRead(MERCURY_SWITCH_2);
+  bool modeButtonState = !digitalRead(MODE_BUTTON);
+  bool muteButtonState = !digitalRead(MUTE_BUTTON);
   
-  // 檢查按鈕是否被按下
-  if (buttonState == LOW && lastButtonState == HIGH) {
-    // 切換到下一個模式
-    mode = (mode + 1) % 3;
-    
-    // 更新 LED 狀態
-    updateModeLED();
-    
-    delay(50);  // 去彈跳
+  // 處理模式切換
+  if (modeButtonState && !lastModeButtonState) {
+    currentMode = (currentMode + 1) % 4;
+    updateLEDs();
+    delay(50);  // 消除彈跳
   }
   
-  // 儲存當前按鈕狀態
-  lastButtonState = buttonState;
+  // 處理靜音切換
+  if (muteButtonState && !lastMuteButtonState) {
+    isMuted = !isMuted;
+    if (isMuted) {
+      noTone(BUZZER_PIN);
+    }
+    delay(50);  // 消除彈跳
+  }
   
-  // 測量距離
-  distance = measureDistance();
-  
-  // 顯示距離
-  Serial.print("距離: ");
-  Serial.print(distance);
-  Serial.println(" cm");
-  
-  // 根據距離播放音符
-  playNoteByDistance(distance);
-  
-  delay(100);  // 短暫延遲
-}
-
-// 測量超音波距離
-int measureDistance() {
-  // 發送超音波脈衝
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  
-  // 計算距離
-  duration = pulseIn(echoPin, HIGH);
-  int calculatedDistance = duration * 0.034 / 2;  // 轉換為公分
-  
-  // 限制最大與最小距離
-  if (calculatedDistance > 50) calculatedDistance = 50;
-  if (calculatedDistance < 5) calculatedDistance = 5;
-  
-  return calculatedDistance;
-}
-
-// 根據距離播放音符
-void playNoteByDistance(int dist) {
-  // 距離範圍：5cm 到 50cm
-  // 將距離映射到音階索引
-  
-  int noteIndex;
-  int freq;
-  
-  if (dist >= 5 && dist <= 50) {
-    switch (mode) {
-      case 0:  // C 大調
-        noteIndex = map(dist, 5, 50, 0, 7);
-        freq = CMajorScale[noteIndex];
+  // 如果沒有靜音，處理聲音輸出
+  if (!isMuted) {
+    // 根據可變電阻值映射到音階
+    int noteIndex = map(potValue, 0, 1023, 0, 7);
+    int baseFreq = NOTES[noteIndex];
+    
+    // 根據模式和開關狀態產生不同效果
+    switch (currentMode) {
+      case 0:  // 基本音階模式
+        if (abs(potValue - lastPotValue) > 5) {  // 只在變化明顯時更新
+          tone(BUZZER_PIN, baseFreq);
+        }
         break;
-      case 1:  // A 小調
-        noteIndex = map(dist, 5, 50, 0, 7);
-        freq = AMinorScale[noteIndex];
+        
+      case 1:  // 顫音模式
+        if (switch1State) {
+          tone(BUZZER_PIN, baseFreq * 1.05);  // 稍微提高音高
+        } else {
+          tone(BUZZER_PIN, baseFreq);
+        }
         break;
-      case 2:  // 五聲音階
-        noteIndex = map(dist, 5, 50, 0, 5);
-        freq = PentatonicScale[noteIndex];
+        
+      case 2:  // 和弦模式
+        if (switch1State && switch2State) {
+          tone(BUZZER_PIN, baseFreq * 1.25);  // 三和弦最高音
+        } else if (switch1State) {
+          tone(BUZZER_PIN, baseFreq * 1.2);   // 三和弦中音
+        } else {
+          tone(BUZZER_PIN, baseFreq);         // 基本音
+        }
+        break;
+        
+      case 3:  // 打擊樂模式
+        if (switch1State != lastSwitch1State || switch2State != lastSwitch2State) {
+          if (switch1State || switch2State) {
+            tone(BUZZER_PIN, baseFreq, 100);  // 短促的音符
+          }
+        }
         break;
     }
-    
-    // 播放音符
-    tone(buzzerPin, freq, 100);
-    
-    // 在序列監視器顯示頻率
-    Serial.print("播放頻率: ");
-    Serial.println(freq);
-  } else {
-    // 如果手太遠或太近，不播放音符
-    noTone(buzzerPin);
   }
+  
+  // 更新上一次的狀態
+  lastPotValue = potValue;
+  lastSwitch1State = switch1State;
+  lastSwitch2State = switch2State;
+  lastModeButtonState = modeButtonState;
+  lastMuteButtonState = muteButtonState;
+  
+  // 輸出除錯資訊
+  Serial.print("Mode: ");
+  Serial.print(currentMode);
+  Serial.print(" Pot: ");
+  Serial.print(potValue);
+  Serial.print(" SW1: ");
+  Serial.print(switch1State);
+  Serial.print(" SW2: ");
+  Serial.println(switch2State);
+  
+  delay(10);  // 小延遲以穩定讀取
 }
 
-// 更新模式 LED 狀態
-void updateModeLED() {
-  switch (mode) {
-    case 0:  // C 大調
-      digitalWrite(redLedPin, HIGH);
-      digitalWrite(yellowLedPin, LOW);
-      digitalWrite(greenLedPin, LOW);
-      Serial.println("模式: C 大調");
-      break;
-    case 1:  // A 小調
-      digitalWrite(redLedPin, LOW);
-      digitalWrite(yellowLedPin, HIGH);
-      digitalWrite(greenLedPin, LOW);
-      Serial.println("模式: A 小調");
-      break;
-    case 2:  // 五聲音階
-      digitalWrite(redLedPin, LOW);
-      digitalWrite(yellowLedPin, LOW);
-      digitalWrite(greenLedPin, HIGH);
-      Serial.println("模式: 五聲音階");
-      break;
-  }
+// 更新 LED 顯示
+void updateLEDs() {
+  digitalWrite(LED_RED, currentMode == 1 || currentMode == 3);
+  digitalWrite(LED_YELLOW, currentMode == 2 || currentMode == 3);
+  digitalWrite(LED_GREEN, currentMode == 0 || currentMode == 2);
 }
