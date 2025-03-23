@@ -116,6 +116,52 @@
 - 地點：國立臺灣師範大學
 - 教室：科技學院 3F Arduino 教室
 
+## 🎨 學員作品展示
+### 2024/03/22-23 工作坊作品
+
+1. **搖擺紙鶴互動裝置**
+   - 作者：錢昱昕（設計系 博一）
+   - 專案：Arduino 控制紙鶴搖擺
+   - [GitHub 連結](https://github.com/dawnchien/20250322)
+
+2. **RhythmicGlow 韻律光影**
+   - 作者：楊欣芸（碩一 61368004T）、曾玟心（碩一 61368020T）
+   - [GitHub 連結](https://github.com/papa1916/RhythmicGlow)
+
+3. **Arduino Mario Music Player**
+   - 作者：昀蓁 Mia
+   - 專案：馬力歐音樂播放器
+   - [GitHub 連結](https://github.com/j6mp/arduino-mario-music-player)
+
+4. **小象心跳控制**
+   - 作者：朱玉瑋（博士班一年級 81368003T）
+   - 專案：模擬小象心跳的互動裝置
+   - [GitHub 連結](https://github.com/Wei4055/Wei-file)
+
+5. **互動燈光裝置**
+   - 作者：王柏景
+   - [GitHub 連結](https://github.com/wang-589/0322wang)
+
+6. **機械感知裝置**
+   - 作者：陳廷恩
+   - [GitHub 連結](https://github.com/41268031t/mechanical-perception)
+
+7. **燒焦味地震感測器**
+   - 作者：
+     - 許芷珊（設計碩一 61368027T）
+     - 黃彩雲（設計碩一 61368028T）
+   - [GitHub 連結](https://github.com/Alexman1208/Workshop)
+
+8. **腦筋急轉彎情緒燈**
+   - 作者：張文馨、林語柔
+   - [GitHub 連結](https://github.com/CC0401-ux/20250322)
+
+9. **Humm 互動裝置**
+   - 作者：顏亞玫（41268003T）
+   - [GitHub 連結](https://github.com/mememeii/humm)
+
+每個專案都展現了獨特的創意思維，結合了 Arduino 的技術與藝術表現，創造出令人驚艷的互動作品。這些作品充分展現了工作坊的學習成果，也展示了技術與藝術結合的無限可能。
+
 ---
 
 *最後更新：2024年3月25日*
